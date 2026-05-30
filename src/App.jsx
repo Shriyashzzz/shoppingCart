@@ -1,12 +1,15 @@
-import { useState } from "react";
-import "./App.css";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router";
+import { useTheme } from "./theme/ThemeContext";
+import { ThemeContext } from "styled-components";
+
 function App() {
-  const [count, setCount] = useState(0);
+  const { dark, toggle } = useTheme();
 
   return (
     <>
       <p>Welcome to the app</p>
+      <button onClick={toggle}>{dark ? "☀️ Light" : "🌙 Dark"}</button>
       <nav>
         <ul>
           <li>

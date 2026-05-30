@@ -1,33 +1,19 @@
-import styled from "styled-components";
 import { Link } from "react-router";
+import styles from "./Error.module.css";
+
 function ErrorPage() {
   return (
     <>
-      <ErrorComponent>
+      <section className={styles.errorSection}>
         <h2>The page you are trying to search for does not exist</h2>
         <h1>404 Not Found</h1>
 
-        <StyledLink to="/">Go back Home</StyledLink>
-      </ErrorComponent>
+        <Link class={styles.goBackLink} to="/">
+          Go back Home
+        </Link>
+      </section>
     </>
   );
 }
-
-const ErrorComponent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 5rem;
-
-  h1 {
-    font-size: 5rem;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  color: #bf4f74;
-  font-weight: bold;
-  font-size: 2rem;
-`;
 
 export default ErrorPage;
