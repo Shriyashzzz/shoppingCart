@@ -1,16 +1,20 @@
 import { Link } from "react-router";
 import styles from "./Error.module.css";
 
-function ErrorPage() {
+function ErrorPage({
+  message = "404 Not Found: The page you are trying to search for does not exist",
+}) {
   return (
     <>
       <section className={styles.errorSection}>
-        <h2>The page you are trying to search for does not exist</h2>
-        <h1>404 Not Found</h1>
-
-        <Link class={styles.goBackLink} to="/">
-          Go back Home
-        </Link>
+        <h2>{message}</h2>
+        {message == "Error Fetching API Data" ? (
+          ""
+        ) : (
+          <Link class={styles.goBackLink} to="/">
+            Go back Home
+          </Link>
+        )}
       </section>
     </>
   );
