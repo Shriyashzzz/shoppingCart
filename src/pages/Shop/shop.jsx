@@ -6,28 +6,39 @@ import { Loading } from "../../components/Loader";
 import ErrorPage from "../Error/Error";
 import Button from "../../components/Button/Button";
 import ShopAddToCartBtn from "../../components/ShopAddCartBtn/ShopAddToCart";
+
 function Shop() {
   const [products, setProducts] = useState([]);
   const [selectedValue, setSelectedValue] = useState("See Everything");
   const [url, setUrl] = useState(allUrl);
   let { data, loading, error } = useFetch(url);
+  const currentCategoryRef = useRef(null);
+  const [currentSortBy, setCurrentSortBy] = useState("Sort By");
 
   useEffect(() => {
     if (data) setProducts(data.products);
   }, [data]);
 
-  const { cart, setCart } = useOutletContext();
-  if (loading) {
-    return (
-      <div className={styles.loaderContainer}>
-        <Loading />
-      </div>
+  useEffect(() => {
+    if (currentSortBy == "Sort By") {
+      return;
+    } else {
+      setProducts(
+        getSortedProducts(products, currentSortBy == sortBy[1] ? true : false),
+      );
+    }
+  }, [currentSortBy]);
+
+  const getSortedProducts = (products, ascending) => {
+    return products.toSorted((a, b) =>
+      ascending ? a.price - b.price : b.price - a.price,
     );
-  } else if (error) {
-    return <ErrorPage message={error} />;
-  }
+  };
+
+  const { cart, setCart } = useOutletContext();
 
   const handleCategoryChange = (event) => {
+    currentCategoryRef.current = event.target.value;
     const value = event.target.value;
     setSelectedValue(value);
     if (value === "all") {
@@ -37,65 +48,108 @@ function Shop() {
     }
   };
 
-  const addToCart = (productId) => {
+  const addToCart = (event, productId) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const inputBoxValue = parseInt(formData.get("cart-count"));
+    event.target.reset(); //resets the form data
     const product = products.find((p) => p.id === productId);
     let exists = cart.some((p) => p.id === productId);
-    if (exists == false) {
-      setCart([...cart, { ...product, cartCount: 1 }]);
+    if (!exists) {
+      setCart([
+        ...cart,
+        { ...product, cartCount: inputBoxValue ? inputBoxValue : 1 },
+      ]);
     } else {
-      const newCart = cart.map((cartPorduct) =>
-        cartPorduct.id == productId
-          ? { ...cartPorduct, cartCount: cartPorduct.cartCount + 1 }
-          : cartPorduct,
+      const newCart = cart.map((cartProduct) =>
+        cartProduct.id === productId
+          ? {
+              ...cartProduct,
+              cartCount:
+                cartProduct.cartCount + (inputBoxValue ? inputBoxValue : 1),
+            }
+          : cartProduct,
       );
       setCart(newCart);
     }
   };
-  return (
-    <section className={styles.shopContainer} key={selectedValue}>
-      <div className={styles.shopFilterBar}>
-        <h4>Yes, we got everything!</h4>
-        <select
-          value={selectedValue}
-          id="categories"
-          name="categories"
-          onChange={handleCategoryChange}
-        >
-          {categories.map((category, index) => (
-            <option value={category} key={index}>
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </option>
-          ))}
-        </select>
-      </div>
 
-      <section className={styles.productGrid}>
-        {products.map((product) => {
-          return (
-            <article key={product.id} className={styles.CardContainer}>
-              <img src={product.images[0]} alt={product.title} />
-              <div className={styles.addCart}>
-                <input
-                  className={styles.productCountInputBox}
-                  type="number"
-                  min={1}
-                />
-                <ShopAddToCartBtn
-                  onClick={addToCart}
-                  productId={product.id}
-                  count
-                />
-              </div>
-              <div className={styles.cardInfo}>
-                <p>{product.title}</p>
-                <p>{`$${product.price}`}</p>
-              </div>
-            </article>
-          );
-        })}
+  const handleItemSort = (e) => {
+    setCurrentSortBy(e.target.value);
+  };
+  if (loading) {
+    return (
+      <div className={styles.loaderContainer}>
+        <Loading />
+      </div>
+    );
+  } else if (error) {
+    return <ErrorPage message={error} />;
+  } else {
+    return (
+      <section className={styles.shopContainer} key={selectedValue}>
+        <div className={styles.shopFilterBar}>
+          <h4>Yes, we got everything!</h4>
+          <select
+            value={selectedValue}
+            id="categories"
+            name="categories"
+            onChange={handleCategoryChange}
+          >
+            {categories.map((category, index) => (
+              <option value={category} key={index}>
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </option>
+            ))}
+          </select>
+          <select
+            value={currentSortBy}
+            id="sort"
+            name="sortSelect"
+            onChange={handleItemSort}
+          >
+            {sortBy.map((sortoption, index) => (
+              <option value={sortoption} key={index}>
+                {sortoption}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <section className={styles.productGrid}>
+          {products.map((product) => {
+            return (
+              <article key={product.id} className={styles.CardContainer}>
+                <img src={product.images[0]} alt={product.title} />
+
+                <form
+                  action=""
+                  className={styles.addCartForm}
+                  onSubmit={(event) => addToCart(event, product.id)}
+                >
+                  <label className={styles.quantityLabel}>Quantity:</label>
+                  <input
+                    className={styles.productCountInputBox}
+                    type="number"
+                    min={1}
+                    defaultValue={1}
+                    name="cart-count"
+                    required={true}
+                  />
+                  <ShopAddToCartBtn type="submit" />
+                </form>
+
+                <div className={styles.cardInfo}>
+                  <p>{product.title}</p>
+                  <p>{`$${product.price}`}</p>
+                </div>
+              </article>
+            );
+          })}
+        </section>
       </section>
-    </section>
-  );
+    );
+  }
 }
 
 const baseUrl = "https://dummyjson.com/products";
@@ -128,4 +182,6 @@ const categories = [
   "womens-shoes",
   "womens-watches",
 ];
+
+const sortBy = ["Sort By", "Price ⬆️", "Price ⬇️"];
 export default Shop;

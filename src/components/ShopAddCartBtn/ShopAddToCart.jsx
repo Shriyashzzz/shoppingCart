@@ -1,8 +1,8 @@
 import styles from "./ShoppAddToCart.module.css";
 
-function ShopAddToCartBtn({ onClick, productId }) {
+function ShopAddToCartBtn({ type }) {
   return (
-    <button className={styles.button} onClick={() => onClick(productId)}>
+    <button className={styles.button} type={type ?? "button"}>
       <svg
         viewBox="0 0 16 16"
         height="24"

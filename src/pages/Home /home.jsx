@@ -14,27 +14,31 @@ function Home() {
   const { cart, setCart } = useOutletContext();
   const { data, loading, error } = useFetch(url);
   const { dark, toggle } = useTheme();
-  if (error) {
-    return <ErrorPage message={error} />;
-  } else if (loading) {
+
+  if (loading) {
     return (
       <div className={styles.loaderContainer}>
         <Loading />
       </div>
     );
   }
-  const products = data.products;
+  if (error) {
+    return <ErrorPage message={error} />;
+  }
+  const products = data?.products ?? [];
+
   const addToCart = (productId) => {
     const product = products.find((p) => p.id === productId);
     let exists = cart.some((p) => p.id === productId);
-    if (exists == false) {
+    if (!exists) {
       setCart([...cart, { ...product, cartCount: 1 }]);
     } else {
-      const newCart = cart.map((cartPorduct) =>
-        cartPorduct.id == productId
-          ? { ...cartPorduct, cartCount: cartPorduct.cartCount + 1 }
-          : cartPorduct,
+      const newCart = cart.map((cartProduct) =>
+        cartProduct.id === productId
+          ? { ...cartProduct, cartCount: cartProduct.cartCount + 1 }
+          : cartProduct,
       );
+      cartProduct;
       setCart(newCart);
     }
   };
@@ -55,7 +59,7 @@ function Home() {
                   width={80}
                 />
                 <Button
-                  onClick={addToCart}
+                  onClick={() => addToCart(product.id)}
                   productId={product.id}
                   text="Add to cart"
                 />
