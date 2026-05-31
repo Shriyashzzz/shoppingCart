@@ -2,11 +2,13 @@ import { useTheme } from "../theme/ThemeContext";
 import clsx from "clsx";
 import { Store } from "lucide-react";
 import styles from "./Header.module.css";
-import { Link } from "react-router";
-
-export default function Header() {
+import { Link, useOutletContext } from "react-router";
+import { ShoppingCart } from "lucide-react";
+const getTotalItemsinCart = (cart) => {
+  return cart.reduce((count, item) => count + item.cartCount, 0);
+};
+export default function Header({ cart }) {
   const { dark, toggle } = useTheme();
-
   return (
     <header>
       <div
@@ -36,7 +38,16 @@ export default function Header() {
             <Link to="shop"> Shop </Link>
           </li>
           <li>
-            <Link to="cart"> Cart </Link>
+            <Link to="cart">
+              <div className={styles.cartContainer}>
+                <div>
+                  <ShoppingCart />
+                </div>
+                <span className={styles.cartCount}>
+                  {getTotalItemsinCart(cart)}
+                </span>
+              </div>
+            </Link>
           </li>
         </ul>
       </nav>
