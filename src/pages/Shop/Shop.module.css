@@ -39,7 +39,6 @@
 
   .CardContainer {
     position: relative;
-    cursor: pointer;
     padding: 0 1rem;
     box-shadow: 0 4px 10px var(--text-muted);
     border: 2px solid var(--text-muted);
@@ -50,7 +49,7 @@
     justify-content: center;
     animation: cardPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 
-    transition: transform 0.3s ease-in-out;
+    transition: translate 0.3s ease-in-out;
 
     img {
       height: 15rem;
@@ -66,9 +65,22 @@
   }
 }
 
+.addCart {
+  display: flex;
+  cursor: pointer;
+  height: 50px;
+  gap: 0.2rem;
+  justify-content: center;
+  align-items: center;
+  .productCountInputBox {
+    border-radius: 4px;
+    max-height: 30px;
+  }
+}
+
 @media (pointer: fine) {
   .CardContainer:hover {
-    transform: translate(-4px, -4px);
+    translate: -4px -4px;
     box-shadow: var(--hoverboxShadow);
   }
 }

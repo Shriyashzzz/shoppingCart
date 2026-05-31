@@ -1,16 +1,17 @@
 import { Link, useOutletContext, useSearchParams } from "react-router";
 import { useFetch } from "../../hooks/useFetch";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Shop.module.css";
 import { Loading } from "../../components/Loader";
 import ErrorPage from "../Error/Error";
 import Button from "../../components/Button/Button";
+import ShopAddToCartBtn from "../../components/ShopAddCartBtn/ShopAddToCart";
 function Shop() {
   const [products, setProducts] = useState([]);
-
   const [selectedValue, setSelectedValue] = useState("See Everything");
   const [url, setUrl] = useState(allUrl);
   let { data, loading, error } = useFetch(url);
+
   useEffect(() => {
     if (data) setProducts(data.products);
   }, [data]);
@@ -55,6 +56,7 @@ function Shop() {
       <div className={styles.shopFilterBar}>
         <h4>Yes, we got everything!</h4>
         <select
+          value={selectedValue}
           id="categories"
           name="categories"
           onChange={handleCategoryChange}
@@ -73,10 +75,15 @@ function Shop() {
             <article key={product.id} className={styles.CardContainer}>
               <img src={product.images[0]} alt={product.title} />
               <div className={styles.addCart}>
-                <Button
+                <input
+                  className={styles.productCountInputBox}
+                  type="number"
+                  min={1}
+                />
+                <ShopAddToCartBtn
                   onClick={addToCart}
                   productId={product.id}
-                  text="Add to cart"
+                  count
                 />
               </div>
               <div className={styles.cardInfo}>
