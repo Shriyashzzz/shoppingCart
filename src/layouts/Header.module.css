@@ -1,0 +1,82 @@
+:root {
+  --headerbg: rgb(239, 239, 239);
+  --headerBorder: 2px solid black;
+  font-size: 20px;
+  --themeBtnbg: rgb(232, 230, 230);
+}
+
+@font-face {
+  font-family: "Ewert";
+  src: url("../assets/fonts/Ewert-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.header {
+  background-color: var(--headerbg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--headerBorder);
+  padding: 0 2rem 0 2rem;
+  transition: all 0.2s ease-in-out;
+  padding: 0.4rem;
+  .themeButton {
+    transition: transform 0.3s ease-out;
+    cursor: pointer;
+    background-color: var(--themeBtnbg);
+    height: fit-content;
+    width: fit-content;
+    border: none;
+    border-radius: 50px;
+    padding: 5px;
+  }
+
+  .themeButton:active {
+    transform: rotate(360deg);
+  }
+}
+.headerLogo {
+  gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.backgroundDarkTheme {
+  --themeBtnbg: rgb(46, 44, 44);
+}
+
+.headerDark {
+  --headerbg: rgb(51, 51, 47);
+  --headerBorder: 1px solid white;
+}
+
+.navBar {
+  ul {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    li {
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      padding: 0.4rem;
+      list-style-type: none;
+      transition: transform 0.3s ease-in-out;
+    }
+    a:active {
+      color: var(--headerbg);
+    }
+    li:hover {
+      transform: translate(0, -2px);
+      a {
+        border-bottom: 1px solid var(--text);
+      }
+    }
+  }
+  a {
+    text-decoration: none;
+  }
+}

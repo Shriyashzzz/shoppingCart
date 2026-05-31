@@ -7,6 +7,13 @@
   --border: #e0e0e0;
   --primary: #6366f1;
 }
+@font-face {
+  font-family: "MyCustomFont";
+  src: url("fonts/my-font.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 [data-theme="dark"] {
   --bg: #4e4848;
