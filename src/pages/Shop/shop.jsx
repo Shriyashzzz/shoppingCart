@@ -6,11 +6,15 @@ import { Loading } from "../../components/Loader";
 import ErrorPage from "../Error/Error";
 import Button from "../../components/Button/Button";
 function Shop() {
+  const [products, setProducts] = useState([]);
+
   const [selectedValue, setSelectedValue] = useState("See Everything");
-  const [url, setUrl] = useState(
-    "https://dummyjson.com/products?limit=0&skip=10&select=title,price,images",
-  );
+  const [url, setUrl] = useState(allUrl);
   let { data, loading, error } = useFetch(url);
+  useEffect(() => {
+    if (data) setProducts(data.products);
+  }, [data]);
+
   const { cart, setCart } = useOutletContext();
   if (loading) {
     return (
@@ -21,10 +25,15 @@ function Shop() {
   } else if (error) {
     return <ErrorPage message={error} />;
   }
-  const products = data.products;
 
   const handleCategoryChange = (event) => {
-    setSelectedValue(event.target.value);
+    const value = event.target.value;
+    setSelectedValue(value);
+    if (value === "all") {
+      setProducts(data.products);
+    } else {
+      setProducts(data.products.filter((p) => p.category === value));
+    }
   };
 
   const addToCart = (productId) => {
@@ -42,7 +51,7 @@ function Shop() {
     }
   };
   return (
-    <section className={styles.shopContainer}>
+    <section className={styles.shopContainer} key={selectedValue}>
       <div className={styles.shopFilterBar}>
         <h4>Yes, we got everything!</h4>
         <select
@@ -72,7 +81,7 @@ function Shop() {
               </div>
               <div className={styles.cardInfo}>
                 <p>{product.title}</p>
-                <p>{product.price} $</p>
+                <p>{`$${product.price}`}</p>
               </div>
             </article>
           );
@@ -82,11 +91,11 @@ function Shop() {
   );
 }
 
-const baseUrl = "'https://dummyjson.com/products";
+const baseUrl = "https://dummyjson.com/products";
 const allUrl =
-  "https://dummyjson.com/products?limit=0&skip=10&select=title,price";
+  "https://dummyjson.com/products?limit=0&select=title,price,images,category";
 const categories = [
-  "See Everything",
+  "all",
   "beauty",
   "fragrances",
   "furniture",

@@ -9,6 +9,11 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+
+  select,
+  option {
+    font-size: clamp(16px, 1.2vw, 20px);
+  }
 }
 
 .shopFilterBar {
@@ -35,26 +40,28 @@
   .CardContainer {
     position: relative;
     cursor: pointer;
+    padding: 0 1rem;
+    box-shadow: 0 4px 10px var(--text-muted);
     border: 2px solid var(--text-muted);
     border-radius: 2rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition:
-      transform 0.3s ease-in-out,
-      opacity 0.3s ease-in-out;
+    animation: cardPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+
+    transition: transform 0.3s ease-in-out;
 
     img {
-      height: 90%;
-      width: 90%;
+      height: 15rem;
+
       object-fit: fill;
     }
     .cardInfo {
       display: flex;
       justify-content: space-between;
-      width: 90%;
+      width: 100%;
+      font-size: 0.95rem;
     }
   }
 }
@@ -68,4 +75,15 @@
 
 .loaderContainer {
   composes: loaderContainer from "../Home /Home.module.css";
+}
+
+@keyframes cardPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
