@@ -1,37 +1,90 @@
-import { Link, useSearchParams } from "react-router";
+import { Link, useOutletContext, useSearchParams } from "react-router";
 import { useFetch } from "../../hooks/useFetch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Shop.module.css";
 import { Loading } from "../../components/Loader";
 import ErrorPage from "../Error/Error";
+import Button from "../../components/Button/Button";
 function Shop() {
+  const [selectedValue, setSelectedValue] = useState("See Everything");
   const [url, setUrl] = useState(
-    "https://dummyjson.com/products?limit=0&skip=10&select=title,price",
+    "https://dummyjson.com/products?limit=0&skip=10&select=title,price,images",
   );
-  const { data, loading, error } = useFetch(url);
-
+  let { data, loading, error } = useFetch(url);
+  const { cart, setCart } = useOutletContext();
   if (loading) {
-    return <Loading />;
+    return (
+      <div className={styles.loaderContainer}>
+        <Loading />
+      </div>
+    );
   } else if (error) {
     return <ErrorPage message={error} />;
   }
   const products = data.products;
-  console.log(products);
+
+  const handleCategoryChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const addToCart = (productId) => {
+    const product = products.find((p) => p.id === productId);
+    let exists = cart.some((p) => p.id === productId);
+    if (exists == false) {
+      setCart([...cart, { ...product, cartCount: 1 }]);
+    } else {
+      const newCart = cart.map((cartPorduct) =>
+        cartPorduct.id == productId
+          ? { ...cartPorduct, cartCount: cartPorduct.cartCount + 1 }
+          : cartPorduct,
+      );
+      setCart(newCart);
+    }
+  };
   return (
     <section className={styles.shopContainer}>
       <div className={styles.shopFilterBar}>
         <h4>Yes, we got everything!</h4>
-        <select id="categories" name="categories">
-          {categories.map((category) => (
-            <option value={category}>
+        <select
+          id="categories"
+          name="categories"
+          onChange={handleCategoryChange}
+        >
+          {categories.map((category, index) => (
+            <option value={category} key={index}>
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </option>
           ))}
         </select>
       </div>
+
+      <section className={styles.productGrid}>
+        {products.map((product) => {
+          return (
+            <article key={product.id} className={styles.CardContainer}>
+              <img src={product.images[0]} alt={product.title} />
+              <div className={styles.addCart}>
+                <Button
+                  onClick={addToCart}
+                  productId={product.id}
+                  text="Add to cart"
+                />
+              </div>
+              <div className={styles.cardInfo}>
+                <p>{product.title}</p>
+                <p>{product.price} $</p>
+              </div>
+            </article>
+          );
+        })}
+      </section>
     </section>
   );
 }
+
+const baseUrl = "'https://dummyjson.com/products";
+const allUrl =
+  "https://dummyjson.com/products?limit=0&skip=10&select=title,price";
 const categories = [
   "See Everything",
   "beauty",

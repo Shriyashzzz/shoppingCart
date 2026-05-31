@@ -1,7 +1,14 @@
+:root {
+  --hoverboxShadow: 0 4px 10px rgba(252, 0, 252, 20);
+}
+
 .shopContainer {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .shopFilterBar {
@@ -13,4 +20,52 @@
     height: fit-content;
     text-align: center;
   }
+}
+
+.productGrid {
+  width: 95%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1rem;
+  row-gap: 2rem;
+  column-gap: 2rem;
+
+  .CardContainer {
+    position: relative;
+    cursor: pointer;
+    border: 2px solid var(--text-muted);
+    border-radius: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition:
+      transform 0.3s ease-in-out,
+      opacity 0.3s ease-in-out;
+
+    img {
+      height: 90%;
+      width: 90%;
+      object-fit: fill;
+    }
+    .cardInfo {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+    }
+  }
+}
+
+@media (pointer: fine) {
+  .CardContainer:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: var(--hoverboxShadow);
+  }
+}
+
+.loaderContainer {
+  composes: loaderContainer from "../Home /Home.module.css";
 }
