@@ -1,4 +1,3 @@
-// hooks/useFetch.js
 import { useState, useEffect } from "react";
 
 export function useFetch(url) {
@@ -19,7 +18,6 @@ export function useFetch(url) {
       } catch (e) {
         setError(e.message);
       } finally {
-        await new Promise((resolve) => setTimeout(resolve, 800));
         setLoading(false);
       }
     };

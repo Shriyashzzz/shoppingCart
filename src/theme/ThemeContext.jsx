@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 // theme context is used to pass the vlaues to the children components
 const ThemeContext = createContext(null);
-//themeprovider hold the state and state chnage condition
+//themeProvider hold the state and state change condition
 //returns the the context with the current dark state Hook value
 export function ThemeProvider({ children }) {
   const [dark, setDark] = useState(false);

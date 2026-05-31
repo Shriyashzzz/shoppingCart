@@ -1,5 +1,5 @@
 import styles from "./App.module.css";
-import Header from "./layouts/Header";
+import Header from "./layouts/Header/Header";
 import { Outlet } from "react-router";
 import { useContext, useState } from "react";
 function App() {

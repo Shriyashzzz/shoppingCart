@@ -1,4 +1,4 @@
-import { useTheme } from "../theme/ThemeContext";
+import { useTheme } from "../../theme/ThemeContext";
 import clsx from "clsx";
 import { Store } from "lucide-react";
 import styles from "./Header.module.css";
@@ -41,7 +41,7 @@ export default function Header({ cart }) {
             <Link to="cart">
               <div className={styles.cartContainer}>
                 <div>
-                  <ShoppingCart />
+                  <ShoppingCart height={24} width={24} />
                 </div>
                 <span className={styles.cartCount}>
                   {getTotalItemsinCart(cart)}

@@ -1,6 +1,6 @@
 /* will be imported to the top level component in index.jsx file */
 :root {
-  --bg: #ffffff;
+  --bg: rgb(239, 239, 239);
   --bg-surface: #f5f5f5;
   --text: #111111;
   --text-muted: #666666;
