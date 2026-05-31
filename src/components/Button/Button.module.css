@@ -24,3 +24,9 @@
   margin-bottom: 10px;
   transform: translateY(10px);
 }
+.buttonWrap {
+  padding: 0;
+  border: none;
+  width: fit-content;
+  height: fit-content;
+}

@@ -1,9 +1,10 @@
 import styles from "./App.module.css";
 import Header from "./layouts/Header";
 import { Outlet } from "react-router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 function App() {
   const [cart, setCart] = useState([]);
+
   return (
     <>
       <Header />

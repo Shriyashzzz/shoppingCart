@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useOutletContext } from "react-router";
 import styles from "./Home.module.css";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
@@ -11,7 +11,7 @@ function Home() {
   const [url, setUrl] = useState(`https://dummyjson.com/products`);
   const [error, setError] = useState(null);
   const [products, setProducts] = useState([]);
-
+  const { cart, setCart } = useOutletContext();
   // fetch data
   useEffect(() => {
     const fetchProducts = async () => {
@@ -28,14 +28,29 @@ function Home() {
         setError(e.message);
         throw Error(`Error Fetching API Data: ${e.message}`);
       } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, 800); //to show off my spinner
+        await new Promise((resolve) => setTimeout(resolve, 800));
+        setLoading(false); // just to show off my spinner
       }
     };
     fetchProducts();
   }, [url]);
 
+  //onclick funciton of addd to Cart button
+  console.log("Current cart:", cart);
+  const addToCart = (productId) => {
+    const product = products.find((p) => p.id === productId);
+    let exists = cart.some((p) => p.id === productId);
+    if (exists == false) {
+      setCart([...cart, { ...product, cartCount: 1 }]);
+    } else {
+      const newCart = cart.map((cartPorduct) =>
+        cartPorduct.id == productId
+          ? { ...cartPorduct, cartCount: cartPorduct.cartCount + 1 }
+          : cartPorduct,
+      );
+      setCart(newCart);
+    }
+  };
   if (error) {
     return <ErrorPage message={error} />;
   } else if (loading) {
@@ -57,9 +72,12 @@ function Home() {
                 <img src={product.images[0]} alt={product.title} />
                 <div className={styles.addCart}>
                   <ShoppingCart height={80} width={80} />
-                  <Button text="Add to cart" />
+                  <Button
+                    onClick={addToCart}
+                    productId={product.id}
+                    text="Add to cart"
+                  />
                 </div>
-
                 <div className={styles.cardInfo}>
                   <p className={styles.rainbowPara}>{product.title}</p>
                   <p>{product.price} $</p>
