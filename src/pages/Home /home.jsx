@@ -1,10 +1,14 @@
 import { Link } from "react-router";
+import styles from  "./Home.module.css";
 
 function Home() {
   return (
-    <>
-      <p>Welcome to Home page yohooo!</p>
-    </>
+    <section className = {} >
+
+
+
+
+    </section>
   );
 }
 
