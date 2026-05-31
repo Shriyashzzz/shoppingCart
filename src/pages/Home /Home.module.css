@@ -11,7 +11,7 @@
   align-items: center;
 }
 .h2Contianer {
-  background-color: var(--divBgColor);
+  background-color: var(--text-muted);
   color: white;
   padding: 1rem;
   transform: skewX(-20deg);
@@ -21,35 +21,72 @@
 
 .releaseH2 {
   font-size: 2rem;
+  color: var(--bg);
 }
 
 .newReleasegrid {
   margin-top: 3rem;
   padding: 2rem;
   display: grid;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   row-gap: 4rem;
   column-gap: 4rem;
-}
-.CardContainer {
-  max-height: 22rem;
-  max-width: 22rem;
-  border: 2px solid var(--text);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  img {
-    height: 90%;
-    width: 90%;
-    object-fit: fill;
-  }
-  .cardInfo {
+
+  .CardContainer {
+    position: relative;
+    cursor: pointer;
+    max-height: 22rem;
+    max-width: 22rem;
+    border: 2px solid var(--text-muted);
+    border-radius: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     display: flex;
-    justify-content: space-between;
-    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition:
+      transform 0.3s ease-in-out,
+      opacity 0.3s ease-in-out;
+
+    img {
+      height: 90%;
+      width: 90%;
+      object-fit: fill;
+    }
+    .cardInfo {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      .rainbowPara {
+        background: linear-gradient(
+          to right,
+          #ff2400,
+          #e81d1d,
+          #e8b21d,
+          #1de840,
+          #1ddde8,
+          #2b1de8,
+          #dd00f3,
+          #dd00f3
+        );
+        background-size: 200% auto;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        animation: rainbow-shift 3s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes rainbow-shift {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 200% 50%;
   }
 }
 .loaderContainer {
@@ -60,6 +97,27 @@
   padding-top: 5rem;
 }
 
+.addCart {
+  position: absolute;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.CardContainer:hover .addCart {
+  opacity: 1;
+}
+
+@media (pointer: fine) {
+  .CardContainer:hover {
+    img {
+      opacity: 0.4;
+    }
+    transform: translate(-4px, -4px);
+  }
+}
 @media screen and (max-width: 630px) {
   .releaseH2 {
     font-size: 1rem;
