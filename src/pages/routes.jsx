@@ -1,7 +1,7 @@
 import App from "../App";
 import { createBrowserRouter } from "react-router";
 import Shop from "./Shop/Shop";
-import Home from "./Home /Home";
+import Home from "./Home/Home";
 import ErrorPage from "./Error/Error";
 
 // routes for the app | react-routing-library
