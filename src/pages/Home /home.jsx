@@ -38,7 +38,7 @@ function Home() {
           ? { ...cartProduct, cartCount: cartProduct.cartCount + 1 }
           : cartProduct,
       );
-      cartProduct;
+
       setCart(newCart);
     }
   };
@@ -50,25 +50,16 @@ function Home() {
       <div className={styles.newReleasegrid}>
         {products.slice(1, 11).map((product) => {
           return (
-            <article key={product.id} className={styles.CardContainer}>
-              <img src={product.images[0]} alt={product.title} />
-              <div className={styles.addCart}>
-                <ShoppingCart
-                  color={dark ? "beige" : "black"}
-                  height={80}
-                  width={80}
-                />
-                <Button
-                  onClick={() => addToCart(product.id)}
-                  productId={product.id}
-                  text="Add to cart"
-                />
-              </div>
-              <div className={styles.cardInfo}>
-                <p className={styles.rainbowPara}>{product.title}</p>
-                <p>{`$${product.price}`}</p>
-              </div>
-            </article>
+            <div key={product.id} className={styles.newItemWrap}>
+              <article className={styles.CardContainer}>
+                <img src={product.images[0]} alt={product.title} />
+                <div className={styles.addCart}></div>
+                <div className={styles.cardInfo}>
+                  <p className={styles.rainbowPara}>{product.title}</p>
+                  <p>{`$${product.price}`}</p>
+                </div>
+              </article>
+            </div>
           );
         })}
       </div>

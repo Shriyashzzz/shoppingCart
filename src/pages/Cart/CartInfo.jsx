@@ -79,7 +79,9 @@ export default function CartInfo({ cart, setCart, onClose }) {
         </section>
       </div>
       <section className={styles.checkoutContainer}>
-        <span>Checkout Total: ${getCheckOutPrice(cart).toFixed(2)}</span>
+        <p>
+          Checkout Total: <span>${getCheckOutPrice(cart).toFixed(2)}</span>
+        </p>
       </section>
     </>
   );
