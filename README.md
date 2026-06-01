@@ -1,16 +1,79 @@
-# React + Vite
+# Shopping Cart App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Browse. Filter. Add to cart. You know the drill.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo
 
-## React Compiler
+[shoppingcart.vercel.app](https://shopping-cart-shriyashzzzs-projects.vercel.app/)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Preview
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![App Preview](./src/assets/preview.png)
+
+---
+
+## What it does
+
+- gives product categories to browse
+- Filter by category, sort by price
+- Add to cart with custom quantity
+- Cart state shared across pages via outlet context
+- Light / Dark mode
+- Fully responsive
+
+---
+
+## Stack
+
+| Tech            | Why                            |
+| --------------- | ------------------------------ |
+| React           | obviously                      |
+| React Router v7 | nested routes + outlet context |
+| CSS Modules     | scoped styles, no conflicts    |
+| Vite            | fast                           |
+| DummyJSON       | free mock API                  |
+
+---
+
+## Run it locally
+
+```bash
+git clone https://github.com/Shriyashzzz/shoppingCart.git
+cd shoppingCart
+npm install
+npm run dev
+```
+
+---
+
+## What I actually learned
+
+- Custom hooks with `AbortController` cleanup
+- Rules of Hooks the hard way (hooks after early returns 💀)
+- CSS nesting is case-sensitive on Linux but not macOS (never again)
+- `FormData` API for form inputs
+- Outlet context for shared cart state across routes
+
+---
+
+## What's next
+
+- Persist cart to `localStorage`
+- Checkout flow
+- Product detail pages
+- Tests
+
+---
+
+## Credits
+
+- [The Odin Project](https://www.theodinproject.com/)
+- [DummyJSON](https://dummyjson.com/)
+
+---
+
+_Educational / portfolio project._
