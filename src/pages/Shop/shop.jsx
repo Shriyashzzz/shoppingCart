@@ -13,18 +13,18 @@ function Shop() {
   const [url, setUrl] = useState(allUrl);
   let { data, loading, error } = useFetch(url);
   const currentCategoryRef = useRef(null);
-  const [currentSortBy, setCurrentSortBy] = useState("Sort By");
+  const [currentSortBy, setCurrentSortBy] = useState("");
 
   useEffect(() => {
     if (data) setProducts(data.products);
   }, [data]);
 
   useEffect(() => {
-    if (currentSortBy == "Sort By") {
-      return;
+    if (currentSortBy === "Sort By") {
+      setProducts(data.products);
     } else {
       setProducts(
-        getSortedProducts(products, currentSortBy == sortBy[1] ? true : false),
+        getSortedProducts(products, currentSortBy === sortBy[1] ? true : false),
       );
     }
   }, [currentSortBy]);
@@ -90,30 +90,39 @@ function Shop() {
       <section className={styles.shopContainer} key={selectedValue}>
         <div className={styles.shopFilterBar}>
           <h4>Yes, we got everything!</h4>
-          <select
-            value={selectedValue}
-            id="categories"
-            name="categories"
-            onChange={handleCategoryChange}
-          >
-            {categories.map((category, index) => (
-              <option value={category} key={index}>
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </option>
-            ))}
-          </select>
-          <select
-            value={currentSortBy}
-            id="sort"
-            name="sortSelect"
-            onChange={handleItemSort}
-          >
-            {sortBy.map((sortoption, index) => (
-              <option value={sortoption} key={index}>
-                {sortoption}
-              </option>
-            ))}
-          </select>
+
+          <div className={styles.filterContainer}>
+            <div className={styles.selectBtnWrapper}>
+              <select
+                value={selectedValue}
+                id="categories"
+                name="categories"
+                className={styles.selectBtn}
+                onChange={handleCategoryChange}
+              >
+                {categories.map((category, index) => (
+                  <option value={category} key={index}>
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className={styles.selectBtnWrapper}>
+              <select
+                className={styles.selectBtn}
+                value={currentSortBy}
+                id="sort"
+                name="sortSelect"
+                onChange={handleItemSort}
+              >
+                {sortBy.map((sortoption, index) => (
+                  <option value={sortoption} key={index}>
+                    {sortoption}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
 
         <section className={styles.productGrid}>
@@ -152,6 +161,8 @@ function Shop() {
   }
 }
 
+// const ref variables
+
 const baseUrl = "https://dummyjson.com/products";
 const allUrl =
   "https://dummyjson.com/products?limit=0&select=title,price,images,category";
@@ -182,6 +193,5 @@ const categories = [
   "womens-shoes",
   "womens-watches",
 ];
-
 const sortBy = ["Sort By", "Price ⬆️", "Price ⬇️"];
 export default Shop;

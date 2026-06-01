@@ -1,0 +1,158 @@
+.footerWrap {
+  margin-top: 8rem;
+  background-color: grey;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem 2rem 1.5rem;
+  font-family: "Courier New", Courier, monospace;
+  color: white;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footerBrand h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0 0 8px;
+  color: white;
+}
+
+.footerBrand p {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+  margin: 0 0 1.25rem;
+  max-width: 28ch;
+}
+
+.socials {
+  display: flex;
+  gap: 8px;
+}
+
+.socialBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+
+  text-decoration: none;
+}
+
+.socialBtn:hover {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.footerCol h4 {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: white;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footerCol ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footerCol ul li a {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footerCol ul li a:hover {
+  color: white;
+}
+
+.footerBottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footerBottom p {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.footerBadges {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.badge {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 3px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@media screen and (max-width: 600px) {
+  .footerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .footerBottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.footerLink {
+  display: flex;
+  flex-direction: row;
+
+  text-decoration: none;
+  align-items: center;
+  color: var(--bg-surface);
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+  transition: 0.2s all ease-in-out;
+  gap: 0.3rem;
+}
+.icons.github:hover {
+  transform: rotate(360deg);
+}
+.icons.github {
+  height: 25px;
+  width: 25px;
+  transition: 0.2s all ease-out;
+  filter: invert(99%) sepia(1%) saturate(2975%) hue-rotate(190deg)
+    brightness(94%) contrast(108%);
+}
+
+.footer-link:hover {
+  transform: scale(1.3);
+}

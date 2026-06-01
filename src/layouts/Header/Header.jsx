@@ -17,7 +17,12 @@ export default function Header({ cart }) {
         })}
       >
         <div className={styles.headerLogo}>
-          <Store color={dark ? "white" : "black"} strokeWidth={2} />
+          <Store
+            color={dark ? "red" : "green"}
+            strokeWidth={2}
+            height={30}
+            width={30}
+          />
           <p>Real Store</p>
         </div>
         <button

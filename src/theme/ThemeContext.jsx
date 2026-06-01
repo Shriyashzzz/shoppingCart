@@ -23,5 +23,5 @@ export function ThemeProvider({ children }) {
   );
 }
 
-//custom hook to reduce the number of imports in the app.jsx file
+//custom hook to make the import easy.
 export const useTheme = () => useContext(ThemeContext);

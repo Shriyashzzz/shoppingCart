@@ -6,6 +6,8 @@
   --text-muted: #666666;
   --border: #e0e0e0;
   --primary: #6366f1;
+  --invertedSolidBg: black;
+  --invertedMutedBg: #666666;
 }
 
 [data-theme="dark"] {
@@ -15,6 +17,8 @@
   --text-muted: #ffffff;
   --border: #333333;
   --primary: #818cf8;
+  --invertedSolidBg: white;
+  --invertedMutedBg: #ffffff;
 
   a {
     color: white;

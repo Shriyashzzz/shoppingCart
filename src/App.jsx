@@ -1,7 +1,8 @@
-import styles from "./App.module.css";
 import Header from "./layouts/Header/Header";
 import { Outlet } from "react-router";
+import Footer from "./layouts/Footer/Footer";
 import { useContext, useState } from "react";
+import "./App.css";
 function App() {
   const [cart, setCart] = useState([]);
 
@@ -11,6 +12,7 @@ function App() {
       <main>
         <Outlet context={{ cart, setCart }} />
       </main>
+      <Footer />
     </>
   );
 }

@@ -19,9 +19,9 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: var(--headerBorder);
-  padding: 0 2rem 0 2rem;
+  padding: 0 0.8rem 0 0.8rem;
   transition: all 0.2s ease-in-out;
-  padding: 0.4rem;
+
   .themeButton {
     transition: transform 0.3s ease-out;
     cursor: pointer;
@@ -85,10 +85,9 @@
 .cartContainer {
   position: relative;
   display: inline-block;
+  font-size: 24px; /* Adjust size of your icon here */
 }
 
-.cartIcon {
-}
 .cartCount {
   position: absolute;
   top: -8px;
