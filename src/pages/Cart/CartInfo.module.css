@@ -5,8 +5,15 @@
   font-style: normal;
 }
 
+.mainInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
 .cartHeader {
   font-family: "Rampart";
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14,34 +21,41 @@
   border-bottom: 1px solid var(--text-muted);
   margin: 1rem;
 }
+
 .closeBtn {
   cursor: pointer;
   transition:
     transform 0.3s ease-in,
     background-color 0.3s ease-in;
-  &:hover {
-    transform: scale(1.2);
-  }
-  &:active {
-    transform: translate(2px, 2px);
-    background-color: grey;
-  }
+}
+
+.closeBtn:hover {
+  transform: scale(1.2);
+}
+
+.closeBtn:active {
+  transform: translate(2px, 2px);
+  background-color: grey;
+}
+
+.allCartItems {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--bg-surface);
 }
 
 .cartItem {
   display: flex;
   font-size: 1rem;
-  align-items: flex-start;
-  padding: 0.4rem;
-  background-color: var(--border);
   padding: 0.5rem;
+  background-color: var(--border);
   margin-bottom: 0.5rem;
   border-bottom: 1px solid black;
-  img {
-    align-self: flex-start;
-    height: 4.3rem;
-    width: 4.3rem;
-  }
+}
+
+.cartItem img {
+  height: 4.3rem;
+  width: 4.3rem;
 }
 
 .itemInfo {
@@ -51,6 +65,7 @@
   width: 100%;
   padding: 0 1rem;
 }
+
 .countPriceInfo {
   display: flex;
   justify-content: space-between;
@@ -61,24 +76,25 @@
   display: flex;
   justify-content: space-between;
 }
+
 .cartCountManipulate {
   display: flex;
   gap: 0.5rem;
-  padding-left: 5rem;
   padding: 0.4rem 0;
   justify-content: center;
-
-  button {
-    background-color: var(--text-muted);
-    color: var(--bg);
-    width: 35px;
-    height: 30px;
-  }
-
-  button:active {
-    border: 2px solid var(--text-muted);
-  }
 }
+
+.cartCountManipulate button {
+  background-color: var(--text-muted);
+  color: var(--bg);
+  width: 35px;
+  height: 30px;
+}
+
+.cartCountManipulate button:active {
+  border: 2px solid var(--text-muted);
+}
+
 .imagePriceContainer {
   display: flex;
   flex-direction: column;
@@ -86,31 +102,25 @@
   justify-content: center;
   gap: 0.6rem;
 }
-.mainInfoWrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
-}
-
-.allCartItems {
-  background-color: car(--bg-surface);
-  flex: 1;
-  overflow-y: auto;
-}
 
 .checkoutContainer {
+  flex-shrink: 0;
   padding: 1rem;
   border-top: 1px solid var(--text-muted);
   display: flex;
   justify-content: center;
-  position: sticky;
-  bottom: 0;
   background-color: var(--bg);
+}
 
-  p {
-    font-size: 1.2rem;
-    letter-spacing: 1px;
-    font-weight: bold;
-  }
+.checkoutContainer p {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.noCartDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
 }

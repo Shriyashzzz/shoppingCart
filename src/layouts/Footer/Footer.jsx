@@ -121,7 +121,7 @@ export default function Footer() {
       </div>
 
       <div className={styles.footerBottom}>
-        <p>© 2026 RealStore. All rights reserved.</p>
+        <p>© 2026 RealStore.</p>
         <a
           className={styles.footerLink}
           href="https://github.com/Shriyashzzz/shoppingCart"
