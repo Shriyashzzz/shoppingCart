@@ -9,11 +9,30 @@ export default function CartInfo({ cart, setCart, onClose }) {
     setCart(cart.filter((product) => product.id !== productId));
   };
 
-  const handleIncrement = (productId) => {
+  const handleItemDecerement = (productId) => {
+    const newArr = [];
+
+    cart.map((product) => {
+      if (product.id == productId) {
+        if (product.cartCount > 1) {
+          newArr.push({ ...product, cartCount: product.cartCount - 1 });
+        } else {
+          handleDeleteItems(productId);
+        }
+      }
+    });
+
+    setCart(newArr);
+  };
+
+  const handleItemIncerement = (productId) => {
     setCart(
       cart.map((product) =>
         product.id === productId
-          ? { ...product, cartCount: product.cartCount + 1 }
+          ? {
+              ...product,
+              cartCount: product.cartCount + 1,
+            }
           : product,
       ),
     );
@@ -28,7 +47,10 @@ export default function CartInfo({ cart, setCart, onClose }) {
         {cart.map((product) => {
           return (
             <article key={product.id} className={styles.cartItem}>
-              <img src={product.images[0]} alt={product.id} />
+              <div className={styles.imagePriceContainer}>
+                <img src={product.images[0]} alt={product.id} />${product.price}
+              </div>
+
               <div className={styles.itemInfo}>
                 <div className={styles.itemTitle}>
                   {product.title}{" "}
@@ -38,9 +60,13 @@ export default function CartInfo({ cart, setCart, onClose }) {
                   />
                 </div>
                 <div className={styles.cartCountManipulate}>
-                  <button onClick={() => handleIncrement(product.id)}>+</button>
+                  <button onClick={() => handleItemIncerement(product.id)}>
+                    +
+                  </button>
                   {product.cartCount}
-                  <button>-</button>
+                  <button onClick={() => handleItemDecerement(product.id)}>
+                    -
+                  </button>
                 </div>
                 <div className={styles.countPriceInfo}>
                   <p>X{product.cartCount}</p>
