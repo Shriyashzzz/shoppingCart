@@ -11,6 +11,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
+  border-bottom: 1px solid var(--text-muted);
+  margin: 1rem;
 }
 .closeBtn {
   cursor: pointer;
@@ -31,7 +33,10 @@
   font-size: 1rem;
   align-items: flex-start;
   padding: 0.4rem;
-
+  background-color: var(--cartItemBg);
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid black;
   img {
     align-self: flex-start;
     height: 4.3rem;

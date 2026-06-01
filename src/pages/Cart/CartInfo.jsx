@@ -12,15 +12,15 @@ export default function CartInfo({ cart, setCart, onClose }) {
   const handleItemDecerement = (productId) => {
     const newArr = [];
 
-    cart.map((product) => {
-      if (product.id == productId) {
+    for (const product of cart) {
+      if (product.id === productId) {
         if (product.cartCount > 1) {
           newArr.push({ ...product, cartCount: product.cartCount - 1 });
-        } else {
-          handleDeleteItems(productId);
         }
+      } else {
+        newArr.push({ ...product });
       }
-    });
+    }
 
     setCart(newArr);
   };
