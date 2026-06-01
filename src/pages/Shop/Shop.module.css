@@ -113,7 +113,7 @@
 }
 
 .loaderContainer {
-  composes: loaderContainer from "../Home /Home.module.css";
+  composes: loaderContainer from "../Home/Home.module.css";
 }
 
 .selectBtnWrapper {
