@@ -21,3 +21,10 @@
 .cartWrapperOpen {
   transform: translateX(0);
 }
+
+@media screen and(max-width:954px) {
+  .cartWrapper {
+    color: red;
+    width: 10px;
+  }
+}
