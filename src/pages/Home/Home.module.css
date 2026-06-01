@@ -57,9 +57,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition:
-    translate 0.3s ease-out,
-    transform 0.3s ease-in;
+  transition: transform 0.3s ease-in;
   animation: cardPopIn 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 
@@ -71,10 +69,6 @@
 }
 
 .CardContainer:hover,
-.CardContainer:active {
-  translate: -4px -4px;
-}
-
 .CardContainer:hover img,
 .CardContainer:active img {
   transform: scale(1.1);
