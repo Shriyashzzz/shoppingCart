@@ -4,10 +4,8 @@ import { Store } from "lucide-react";
 import styles from "./Header.module.css";
 import { Link, useOutletContext } from "react-router";
 import { ShoppingCart } from "lucide-react";
-const getTotalItemsinCart = (cart) => {
-  return cart.reduce((count, item) => count + item.cartCount, 0);
-};
-export default function Header({ cart }) {
+import { getTotalItemsinCart } from "../../pages/Cart/getCartInfo";
+export default function Header({ cart, isCartOpen, setIsCartOpen }) {
   const { dark, toggle } = useTheme();
   return (
     <header>
@@ -18,8 +16,8 @@ export default function Header({ cart }) {
       >
         <div className={styles.headerLogo}>
           <Store
-            color={dark ? "red" : "green"}
-            strokeWidth={2}
+            color={dark ? "black" : "white"}
+            strokeWidth={1}
             height={30}
             width={30}
           />
@@ -43,16 +41,17 @@ export default function Header({ cart }) {
             <Link to="shop"> Shop </Link>
           </li>
           <li>
-            <Link to="cart">
-              <div className={styles.cartContainer}>
-                <div>
-                  <ShoppingCart height={24} width={24} />
-                </div>
-                <span className={styles.cartCount}>
-                  {getTotalItemsinCart(cart)}
-                </span>
+            <button
+              className={styles.cartContainer}
+              onClick={() => setIsCartOpen(!isCartOpen)}
+            >
+              <div>
+                <ShoppingCart height={24} width={24} />
               </div>
-            </Link>
+              <span className={styles.cartCount}>
+                {getTotalItemsinCart(cart)}
+              </span>
+            </button>
           </li>
         </ul>
       </nav>

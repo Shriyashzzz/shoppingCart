@@ -68,7 +68,7 @@
       transition: transform 0.3s ease-in-out;
     }
     a:active {
-      color: var(--headerbg);
+      color: var(--bg);
     }
     li:hover {
       transform: translate(0, -2px);
@@ -83,9 +83,20 @@
 }
 
 .cartContainer {
+  all: unset;
+  cursor: pointer;
   position: relative;
   display: inline-block;
+
   font-size: 24px; /* Adjust size of your icon here */
+}
+
+.cartContainer:hover {
+  border-bottom: 1px solid var(--text);
+}
+
+.cartContainer:active {
+  color: var(--bg);
 }
 
 .cartCount {

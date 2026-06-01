@@ -14,7 +14,6 @@
   option {
     font-size: clamp(16px, 1.2vw, 20px);
   }
-  padding-bottom: 10rem;
 }
 
 .shopFilterBar {
@@ -52,7 +51,6 @@
     padding: 0 1rem;
     box-shadow: 0 4px 10px var(--text-muted);
     border: 2px solid var(--text-muted);
-    border-radius: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;

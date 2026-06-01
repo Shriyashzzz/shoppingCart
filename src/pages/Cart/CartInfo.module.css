@@ -1,0 +1,72 @@
+@font-face {
+  font-family: "Rampart";
+  src: url(../../assets/fonts/RampartOne-Regular.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.cartHeader {
+  font-family: "Rampart";
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+.closeBtn {
+  cursor: pointer;
+  transition:
+    transform 0.3s ease-in,
+    background-color 0.3s ease-in;
+  &:hover {
+    transform: scale(1.2);
+  }
+  &:active {
+    transform: translate(2px, 2px);
+    background-color: grey;
+  }
+}
+
+.cartItem {
+  display: flex;
+  font-size: 1rem;
+  align-items: flex-start;
+
+  img {
+    align-self: flex-start;
+    height: 4rem;
+    width: 4rem;
+  }
+}
+
+.itemInfo {
+  display: flex;
+  gap: 0.4rem;
+  flex-direction: column;
+  width: 100%;
+}
+.countPriceInfo {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.itemTitle {
+  display: flex;
+  justify-content: space-between;
+}
+.cartCountManipulate {
+  display: flex;
+  gap: 0.5rem;
+  padding-left: 5rem;
+
+  button {
+    background-color: var(--text-muted);
+    color: var(--bg);
+    width: 35px;
+    height: 30px;
+  }
+
+  button:active {
+    border: 2px solid var(--text-muted);
+  }
+}
