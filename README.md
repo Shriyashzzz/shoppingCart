@@ -6,7 +6,7 @@ Browse. Filter. Add to cart. You know the drill.
 
 ## Live Demo
 
-[Live Dem](https://realstore-tau.vercel.app/)
+[Live](https://realstore-tau.vercel.app/)
 
 ---
 
@@ -63,6 +63,8 @@ npm run dev
 - Outlet context for shared cart state across routes
 - Practiced fetching with Abort controller that aborts the fetching in case app rerenders while ferching data.
 - Using global css to share css variables all around the App children.
+- Learned real-life edge cases when selling products after a feedback session with a seasoned dev. Shoutout to my roommate Biplap Bhattarai!
+- Learned the need of concurrency between client side & server side
 
 ---
 
@@ -71,9 +73,9 @@ npm run dev
 - Persist cart to `localStorage`
 - Checkout flow
 - Product detail pages
-- Tests
-- I'd like to practice parallel fetching, couldn't do so with this app, as i opted chace the fetched data, unless absolute necessary to fetch again.
-- Looking forward to refactor code to use data-providers to share fetched data in between SHOP and HOME page to reduce unecessary fetching.
+- Tests (I did not test my app as much as I wanted to. I'd like to go a lil bit more deep into testing UI impleementation with react-routing-library)
+- Fetching: I'd like to practice parallel fetching, couldn't do so with this app, as i opted chace the fetched data, unless absolute necessary to fetch again.
+- Looking forward to refactor code to using data-providers to share fetched data in between SHOP and HOME page to reduce unecessary fetching.
 
 ---
 
