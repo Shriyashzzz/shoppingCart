@@ -9,13 +9,14 @@ import ShopAddToCartBtn from "../../components/ShopAddCartBtn/ShopAddToCart";
 import fetchData from "../../api/fetchData";
 
 function Shop() {
+  const [fatalError, setFatalError] = useState(null);
+
   const [products, setProducts] = useState([]);
   const [selectedValue, setSelectedValue] = useState("See Everything");
   const [url, setUrl] = useState(allUrl);
   let { data, loading, error } = useFetch(url);
   const currentCategoryRef = useRef(null);
   const [currentSortBy, setCurrentSortBy] = useState("");
-
   useEffect(() => {
     if (data) setProducts(data.products);
   }, [data]);
@@ -55,14 +56,18 @@ function Shop() {
     event.target.reset(); //resets the form data
     //variable used later to check
     // if the price of the product that user sees matches in the server.
+    let realTimeProductPrice;
     try {
-      const realTimeProductPrice = await fetchData(
+      realTimeProductPrice = await fetchData(
         `https://dummyjson.com/products/${productId}`,
-      ).price;
+      );
+      realTimeProductPrice = realTimeProductPrice.price;
     } catch (e) {
-      return <ErrorPage message={e.message} />;
+      console.error(e);
+      alert("Failed to fetch latest price, try again."); // notify the user
+      setFatalError(e.message);
+      return; // abort adding to cart if item does not exist
     }
-
     const product = products.find((p) => p.id === productId);
     let exists = cart.some((p) => p.id === productId);
     if (!exists) {
@@ -104,8 +109,8 @@ function Shop() {
         <Loading />
       </div>
     );
-  } else if (error) {
-    return <ErrorPage message={error} />;
+  } else if (error || fatalError) {
+    return <ErrorPage message={fatalError ?? error} />;
   } else {
     return (
       <section className={styles.shopContainer} key={selectedValue}>
