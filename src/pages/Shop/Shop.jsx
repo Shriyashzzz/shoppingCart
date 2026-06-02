@@ -55,17 +55,13 @@ function Shop() {
     event.target.reset(); //resets the form data
     //variable used later to check
     // if the price of the product that user sees matches in the server.
-    const realTimeProductPrice = await fetchData(
-      `https://dummyjson.com/products/${productId}`,
-    ).price;
-
-    // if (realTimeProductPrice == null) {
-    //   return (
-    //     <ErrorPage
-    //       message={`Error: The product does not exist anymore! Please buy soemthing else.`}
-    //     />
-    //   );
-    // }
+    try {
+      const realTimeProductPrice = await fetchData(
+        `https://dummyjson.com/products/${productId}`,
+      ).price;
+    } catch (e) {
+      return <ErrorPage message={e.message} />;
+    }
 
     const product = products.find((p) => p.id === productId);
     let exists = cart.some((p) => p.id === productId);
