@@ -109,7 +109,7 @@ select {
     padding: 0.5rem;
     outline: none;
     border-radius: 4px;
-    border: 2px solid var(--text);
+    border: 2px solid black;
     border-left: none;
     border-right: none;
     border-radius: 0px;
