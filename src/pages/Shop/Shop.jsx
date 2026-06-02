@@ -6,6 +6,7 @@ import { Loading } from "../../components/Loader";
 import ErrorPage from "../Error/Error";
 import Button from "../../components/Button/Button";
 import ShopAddToCartBtn from "../../components/ShopAddCartBtn/ShopAddToCart";
+import fetchData from "../../api/fetchData";
 
 function Shop() {
   const [products, setProducts] = useState([]);
@@ -36,7 +37,6 @@ function Shop() {
   };
 
   const { cart, setCart } = useOutletContext();
-
   const handleCategoryChange = (event) => {
     currentCategoryRef.current = event.target.value;
     const value = event.target.value;
@@ -48,17 +48,38 @@ function Shop() {
     }
   };
 
-  const addToCart = (event, productId) => {
+  const addToCart = async (event, productId) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const inputBoxValue = parseInt(formData.get("cart-count"));
     event.target.reset(); //resets the form data
+    //variable used later to check
+    // if the price of the product that user sees matches in the server.
+    const realTimeProductPrice = await fetchData(
+      `https://dummyjson.com/products/${productId}`,
+    ).price;
+
+    // if (realTimeProductPrice == null) {
+    //   return (
+    //     <ErrorPage
+    //       message={`Error: The product does not exist anymore! Please buy soemthing else.`}
+    //     />
+    //   );
+    // }
+
     const product = products.find((p) => p.id === productId);
     let exists = cart.some((p) => p.id === productId);
     if (!exists) {
       setCart([
         ...cart,
-        { ...product, cartCount: inputBoxValue ? inputBoxValue : 1 },
+        {
+          ...product,
+          cartCount: inputBoxValue ? inputBoxValue : 1,
+          price:
+            product.price === realTimeProductPrice
+              ? product.price
+              : realTimeProductPrice, // replaces the price of the product in the cart if it's been changed since user login
+        },
       ]);
     } else {
       const newCart = cart.map((cartProduct) =>
@@ -67,6 +88,10 @@ function Shop() {
               ...cartProduct,
               cartCount:
                 cartProduct.cartCount + (inputBoxValue ? inputBoxValue : 1),
+              price:
+                product.price === realTimeProductPrice
+                  ? product.price
+                  : realTimeProductPrice, //same thing replaces the price if it's been changed on the server side
             }
           : cartProduct,
       );
