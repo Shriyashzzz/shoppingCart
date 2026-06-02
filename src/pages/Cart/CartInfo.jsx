@@ -1,41 +1,13 @@
 import styles from "./CartInfo.module.css";
-import { getTotalItemsinCart } from "./getCartInfo";
+import {
+  getTotalItemsinCart,
+  handleItemDecerement,
+  handleItemIncerement,
+  handleDeleteItems,
+} from "./getCartInfo";
 import { X } from "lucide-react";
 import { Trash2 } from "lucide-react";
 export default function CartInfo({ cart, setCart, onClose }) {
-  const handleDeleteItems = (productId) => {
-    setCart(cart.filter((product) => product.id !== productId));
-  };
-
-  const handleItemDecerement = (productId) => {
-    const newArr = [];
-
-    for (const product of cart) {
-      if (product.id === productId) {
-        if (product.cartCount > 1) {
-          newArr.push({ ...product, cartCount: product.cartCount - 1 });
-        }
-      } else {
-        newArr.push({ ...product });
-      }
-    }
-
-    setCart(newArr);
-  };
-
-  const handleItemIncerement = (productId) => {
-    setCart(
-      cart.map((product) =>
-        product.id === productId
-          ? {
-              ...product,
-              cartCount: product.cartCount + 1,
-            }
-          : product,
-      ),
-    );
-  };
-
   return (
     <div className={styles.mainInfoWrapper}>
       <section className={styles.cartHeader}>
@@ -58,15 +30,23 @@ export default function CartInfo({ cart, setCart, onClose }) {
                   {product.title}{" "}
                   <Trash2
                     className={styles.closeBtn}
-                    onClick={() => handleDeleteItems(product.id)}
+                    onClick={() => handleDeleteItems(setCart, product.id, cart)}
                   />
                 </div>
                 <div className={styles.cartCountManipulate}>
-                  <button onClick={() => handleItemIncerement(product.id)}>
+                  <button
+                    onClick={() =>
+                      handleItemIncerement(setCart, product.id, cart)
+                    }
+                  >
                     +
                   </button>
                   {product.cartCount}
-                  <button onClick={() => handleItemDecerement(product.id)}>
+                  <button
+                    onClick={() =>
+                      handleItemDecerement(setCart, product.id, cart)
+                    }
+                  >
                     -
                   </button>
                 </div>

@@ -92,9 +92,14 @@
   }
 
   .productCountInputBox {
+    box-sizing: border-box;
     outline: none;
     border-radius: 4px;
     border: 2px solid var(--text);
+    border-left: none;
+    border-right: none;
+    border-radius: 0px;
+    text-align: center;
   }
   .productCountInputBox:focus.productCountInputBox:valid {
     border: 2px solid green;
@@ -102,6 +107,18 @@
 
   .productCountInputBox:focus.productCountInputBox:invalid {
     border: 2px solid red;
+  }
+  .incrementDecrebtn {
+    box-sizing: border-box;
+    border: 2px solid black;
+    font-weight: bold;
+    height: 35px;
+    transition: 0.2s ease-in;
+  }
+
+  .incrementDecrebtn:active {
+    transform: translate(-2px, -2px);
+    background-color: var(--invertedMutedBg);
   }
 }
 

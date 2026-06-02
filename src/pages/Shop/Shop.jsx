@@ -7,16 +7,21 @@ import ErrorPage from "../Error/Error";
 import Button from "../../components/Button/Button";
 import ShopAddToCartBtn from "../../components/ShopAddCartBtn/ShopAddToCart";
 import fetchData from "../../api/fetchData";
+import {
+  handleItemDecerement,
+  handleItemIncerement,
+} from "../Cart/getCartInfo";
 
 function Shop() {
   const [fatalError, setFatalError] = useState(null);
-
   const [products, setProducts] = useState([]);
   const [selectedValue, setSelectedValue] = useState("See Everything");
   const [url, setUrl] = useState(allUrl);
   let { data, loading, error } = useFetch(url);
   const currentCategoryRef = useRef(null);
   const [currentSortBy, setCurrentSortBy] = useState("");
+
+  const [inputState, setInputState] = useState([]);
   useEffect(() => {
     if (data) setProducts(data.products);
   }, [data]);
@@ -100,6 +105,23 @@ function Shop() {
     }
   };
 
+  const handleInputChnage = (event, direction) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Find the input box inside the same form container as the button
+    const form = event.currentTarget.closest("form");
+    const input = form.querySelector('input[name="cart-count"]');
+
+    if (input) {
+      let currentValue = parseInt(input.value) || 1;
+      if (direction === "up") {
+        input.value = currentValue + 1;
+      } else if (direction === "down" && currentValue > 1) {
+        input.value = currentValue - 1;
+      }
+    }
+  };
   const handleItemSort = (e) => {
     setCurrentSortBy(e.target.value);
   };
@@ -124,7 +146,7 @@ function Shop() {
                 id="categories"
                 name="categories"
                 className={styles.selectBtn}
-                onChange={handleCategoryChange}
+                onChange={() => handleCategoryChange()}
               >
                 {categories.map((category, index) => (
                   <option value={category} key={index}>
@@ -162,15 +184,41 @@ function Shop() {
                   className={styles.addCartForm}
                   onSubmit={(event) => addToCart(event, product.id)}
                 >
+                  {" "}
                   <label className={styles.quantityLabel}>Quantity:</label>
-                  <input
-                    className={styles.productCountInputBox}
-                    type="number"
-                    min={1}
-                    defaultValue={1}
-                    name="cart-count"
-                    required={true}
-                  />
+                  <div className={styles.cartCountManipulate}>
+                    <button
+                      className={styles.incrementDecrebtn}
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault(); // Stops form submissions
+                        e.stopPropagation(); // Stops double-trigger bubbling
+                        handleInputChnage(e, "down");
+                      }}
+                    >
+                      -
+                    </button>
+                    <input
+                      className={styles.productCountInputBox}
+                      type="number"
+                      min={1}
+                      name="cart-count"
+                      defaultValue={1}
+                      required={true}
+                    />
+                    {product.cartCount}
+                    <button
+                      className={styles.incrementDecrebtn}
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleInputChnage(e, "up");
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
                   <ShopAddToCartBtn type="submit" />
                 </form>
 
