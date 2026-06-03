@@ -128,6 +128,7 @@ select {
   }
 
   .incrementDecrebtn {
+    cursor: pointer;
     box-sizing: border-box;
     height: 2.5rem;
     padding: 0.5rem 1rem;

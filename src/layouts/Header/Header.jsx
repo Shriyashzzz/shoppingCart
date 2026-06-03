@@ -2,7 +2,7 @@ import { useTheme } from "../../theme/ThemeContext";
 import clsx from "clsx";
 import { Store } from "lucide-react";
 import styles from "./Header.module.css";
-import { Link, useOutletContext } from "react-router";
+import { Link, NavLink, useOutletContext } from "react-router";
 import { ShoppingCart } from "lucide-react";
 import { getTotalItemsinCart } from "../../pages/Cart/getCartInfo";
 import ThemeBtn from "../../components/ThemeBtn/ThemeBtn";
@@ -31,10 +31,10 @@ export default function Header({ cart, isCartOpen, setIsCartOpen }) {
       <nav className={clsx(styles.navBar)}>
         <ul>
           <li>
-            <Link to="/"> Home </Link>
+            <NavLink to="/"> Home </NavLink>
           </li>
           <li>
-            <Link to="shop"> Shop </Link>
+            <NavLink to="shop"> Shop </NavLink>
           </li>
           <li>
             <div
