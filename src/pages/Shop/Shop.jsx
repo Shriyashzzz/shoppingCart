@@ -146,7 +146,7 @@ function Shop() {
                 id="categories"
                 name="categories"
                 className={styles.selectBtn}
-                onChange={() => handleCategoryChange()}
+                onChange={(e) => handleCategoryChange(e)}
               >
                 {categories.map((category, index) => (
                   <option value={category} key={index}>

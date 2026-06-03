@@ -19,15 +19,6 @@ export const handleItemDecerement = (setCart, productId, cart) => {
       )
       .filter((prevProducts) => prevProducts.cartCount > 0);
   });
-  // const updatedCart = cart
-  //   .map((product) =>
-  //     product.id === productId
-  //       ? { ...product, cartCount: product.cartCount - 1 }
-  //       : product,
-  //   )
-  //   // Automatically remove items if their count drops to 0 or less
-  //   .filter((product) => product.cartCount > 0);
-  // setCart(updatedCart);
 };
 
 export const handleItemIncerement = (setCart, productId, cart) => {
