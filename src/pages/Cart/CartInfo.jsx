@@ -7,7 +7,15 @@ import {
 } from "./getCartInfo";
 import { X } from "lucide-react";
 import { Trash2 } from "lucide-react";
+import { useMemo } from "react";
 export default function CartInfo({ cart, setCart, onClose }) {
+  const getCheckOutPrice = useMemo(() => {
+    return cart.reduce((count, product) => {
+      count += product.cartCount * product.price;
+      return count;
+    }, 0);
+  }, [cart]);
+
   return (
     <div className={styles.mainInfoWrapper}>
       <section className={styles.cartHeader}>
@@ -61,18 +69,9 @@ export default function CartInfo({ cart, setCart, onClose }) {
       </section>
       <section className={styles.checkoutContainer}>
         <p>
-          Checkout Total: <span>${getCheckOutPrice(cart).toFixed(2)}</span>
+          Checkout Total: <span>${getCheckOutPrice.toFixed(2)}</span>
         </p>
       </section>
     </div>
   );
 }
-
-const getCheckOutPrice = (cart) => {
-  return cart.reduce((count, product) => {
-    count += product.cartCount * product.price;
-    return count;
-  }, 0);
-};
-
-//make delete btn funciton
