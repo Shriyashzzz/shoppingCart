@@ -45,7 +45,9 @@ export default function Header({ cart, isCartOpen, setIsCartOpen }) {
                 <ShoppingCart height={24} width={24} />
               </div>
               <span className={styles.cartCount}>
-                {getTotalItemsinCart(cart)}
+                {getTotalItemsinCart(cart) > 10
+                  ? ">10"
+                  : getTotalItemsinCart(cart)}
               </span>
             </div>
           </li>
