@@ -11,7 +11,7 @@ function ErrorPage({
         {message == "Error Fetching API Data" ? (
           ""
         ) : (
-          <Link class={styles.goBackLink} to="/">
+          <Link className={styles.goBackLink} to="/">
             Go back Home
           </Link>
         )}

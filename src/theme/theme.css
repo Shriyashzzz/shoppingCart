@@ -10,9 +10,11 @@
   --invertedMutedBg: #666666;
   --cartItemBg: rgb(171, 168, 168);
   --themeBtn: rgb(166, 126, 126);
+  --popoutbgDiv: #d6d5d5;
 }
 
 [data-theme="dark"] {
+  --popoutbgDiv: #585858;
   --bg: #4e4848;
   --bg-surface: #1e1e1e;
   --text: #f1f1f1;

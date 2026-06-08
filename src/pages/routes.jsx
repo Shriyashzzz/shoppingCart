@@ -5,7 +5,7 @@ import Home from "./Home/Home";
 import ErrorPage from "./Error/Error";
 import DefaultHome from "./Home/DefaultHome";
 import { Component } from "lucide-react";
-import Product from "./Porduct/Product";
+import Product from "./Product/Product";
 // routes for the app | react-routing-library
 
 export const routes = [
