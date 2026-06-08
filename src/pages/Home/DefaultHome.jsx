@@ -1,4 +1,4 @@
-import { Link, Outlet, useOutletContext } from "react-router";
+import { Link, NavLink, Outlet, useOutletContext } from "react-router";
 import styles from "./Home.module.css";
 import clsx from "clsx";
 import { useState, useEffect, useContext } from "react";
@@ -50,7 +50,11 @@ export default function DefaultHome() {
       <div className={styles.newReleasegrid}>
         {products.slice(1, 11).map((product) => {
           return (
-            <div key={product.id} className={styles.newItemWrap}>
+            <NavLink
+              key={product.id}
+              className={styles.newItemWrap}
+              to={`/product/${product.id}`}
+            >
               <article className={styles.CardContainer}>
                 <img src={product.images[0]} alt={product.title} />
                 <div className={styles.addCart}></div>
@@ -59,7 +63,7 @@ export default function DefaultHome() {
                   <p>{`$${product.price}`}</p>
                 </div>
               </article>
-            </div>
+            </NavLink>
           );
         })}
       </div>

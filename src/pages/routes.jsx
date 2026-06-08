@@ -4,6 +4,8 @@ import Shop from "./Shop/Shop";
 import Home from "./Home/Home";
 import ErrorPage from "./Error/Error";
 import DefaultHome from "./Home/DefaultHome";
+import { Component } from "lucide-react";
+import Product from "./Porduct/Product";
 // routes for the app | react-routing-library
 
 export const routes = [
@@ -18,6 +20,10 @@ export const routes = [
           {
             index: true,
             element: <DefaultHome />,
+          },
+          {
+            path: "/product/:productid",
+            element: <Product />,
           },
         ],
       },
