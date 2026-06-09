@@ -6,6 +6,7 @@ import ErrorPage from "./Error/Error";
 import DefaultHome from "./Home/DefaultHome";
 import { Component } from "lucide-react";
 import Product from "./Product/Product";
+import DefaultShop from "./Shop/DefaultShop";
 // routes for the app | react-routing-library
 
 export const routes = [
@@ -30,6 +31,12 @@ export const routes = [
       {
         path: "shop",
         element: <Shop />,
+        children: [
+          {
+            index: true,
+            element: <DefaultShop />,
+          },
+        ],
       },
     ],
   },

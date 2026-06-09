@@ -5,7 +5,9 @@ import styles from "./Product.module.css";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import ShopAddToCartBtn from "../../components/ShopAddCartBtn/ShopAddToCart";
+import ScrollToTop from "../../hooks/ScrollToTop";
 export default function Product() {
+  ScrollToTop();
   const { productid } = useParams();
   const { data, loading, error } = useFetch(`${product_base_url}${productid}`);
   const { cart, setCart } = useOutletContext();
