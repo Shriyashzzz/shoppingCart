@@ -11,7 +11,7 @@ import {
   handleItemDecerement,
   handleItemIncerement,
 } from "../Cart/getCartInfo";
-
+import { Outlet } from "react-router";
 function Shop() {
   const [fatalError, setFatalError] = useState(null);
   const [products, setProducts] = useState([]);
@@ -51,57 +51,6 @@ function Shop() {
       setProducts(data.products);
     } else {
       setProducts(data.products.filter((p) => p.category === value));
-    }
-  };
-
-  const addToCart = async (event, productId) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const inputBoxValue = parseInt(formData.get("cart-count"));
-    event.target.reset(); //resets the form data
-    //variable used later to check
-    // if the price of the product that user sees matches in the server.
-    let realTimeProductPrice;
-    try {
-      realTimeProductPrice = await fetchData(
-        `https://dummyjson.com/products/${productId}`,
-      );
-      realTimeProductPrice = realTimeProductPrice.price;
-    } catch (e) {
-      console.error(e);
-      alert("Failed to fetch latest price, try again."); // notify the user
-      setFatalError(e.message);
-      return; // abort adding to cart if item does not exist
-    }
-    const product = products.find((p) => p.id === productId);
-    let exists = cart.some((p) => p.id === productId);
-    if (!exists) {
-      setCart([
-        ...cart,
-        {
-          ...product,
-          cartCount: inputBoxValue ? inputBoxValue : 1,
-          price:
-            product.price === realTimeProductPrice
-              ? product.price
-              : realTimeProductPrice, // replaces the price of the product in the cart if it's been changed since user login
-        },
-      ]);
-    } else {
-      const newCart = cart.map((cartProduct) =>
-        cartProduct.id === productId
-          ? {
-              ...cartProduct,
-              cartCount:
-                cartProduct.cartCount + (inputBoxValue ? inputBoxValue : 1),
-              price:
-                product.price === realTimeProductPrice
-                  ? product.price
-                  : realTimeProductPrice, //same thing replaces the price if it's been changed on the server side
-            }
-          : cartProduct,
-      );
-      setCart(newCart);
     }
   };
 
@@ -182,7 +131,9 @@ function Shop() {
                 <form
                   action=""
                   className={styles.addCartForm}
-                  onSubmit={(event) => addToCart(event, product.id)}
+                  onSubmit={(event) =>
+                    addToCart(event, product.id, cart, setCart, products)
+                  }
                 >
                   {" "}
                   <label className={styles.quantityLabel}>Quantity:</label>
@@ -268,4 +219,54 @@ const categories = [
   "womens-watches",
 ];
 const sortBy = ["Sort By", "Price ⬆️", "Price ⬇️"];
+const addToCart = async (event, productId, cart, setCart, products) => {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const inputBoxValue = parseInt(formData.get("cart-count"));
+  event.target.reset(); //resets the form data
+  //variable used later to check
+  // if the price of the product that user sees matches in the server.
+  let realTimeProductPrice;
+  try {
+    realTimeProductPrice = await fetchData(
+      `https://dummyjson.com/products/${productId}`,
+    );
+    realTimeProductPrice = realTimeProductPrice.price;
+  } catch (e) {
+    console.error(e);
+    alert("Failed to fetch latest price, try again."); // notify the user
+    setFatalError(e.message);
+    return; // abort adding to cart if item does not exist
+  }
+  const product = products.find((p) => p.id === productId);
+  let exists = cart.some((p) => p.id === productId);
+  if (!exists) {
+    setCart([
+      ...cart,
+      {
+        ...product,
+        cartCount: inputBoxValue ? inputBoxValue : 1,
+        price:
+          product.price === realTimeProductPrice
+            ? product.price
+            : realTimeProductPrice, // replaces the price of the product in the cart if it's been changed since user login
+      },
+    ]);
+  } else {
+    const newCart = cart.map((cartProduct) =>
+      cartProduct.id === productId
+        ? {
+            ...cartProduct,
+            cartCount:
+              cartProduct.cartCount + (inputBoxValue ? inputBoxValue : 1),
+            price:
+              product.price === realTimeProductPrice
+                ? product.price
+                : realTimeProductPrice, //same thing replaces the price if it's been changed on the server side
+          }
+        : cartProduct,
+    );
+    setCart(newCart);
+  }
+};
 export default Shop;
