@@ -175,17 +175,14 @@ export default function DefaultShop() {
         <section className={styles.productGrid}>
           {products.map((product) => {
             return (
-              <NavLink
-                key={product.id}
-                className={styles.CardContainer}
-                to={`/product/${product.id}`}
-              >
-                <img
-                  src={product.images[0]}
-                  alt={product.title}
-                  loading="lazy"
-                />
-
+              <div className={styles.CardContainer}>
+                <NavLink key={product.id} to={`/product/${product.id}`}>
+                  <img
+                    src={product.images[0]}
+                    alt={product.title}
+                    loading="lazy"
+                  />
+                </NavLink>
                 <form
                   action=""
                   className={styles.addCartForm}
@@ -235,7 +232,7 @@ export default function DefaultShop() {
                   <p>{product.title}</p>
                   <p>{`$${product.price}`}</p>
                 </div>
-              </NavLink>
+              </div>
             );
           })}
         </section>
