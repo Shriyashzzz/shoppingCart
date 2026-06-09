@@ -5,12 +5,12 @@ import styles from "./Product.module.css";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import ShopAddToCartBtn from "../../components/ShopAddCartBtn/ShopAddToCart";
-import ScrollToTop from "../../hooks/ScrollToTop";
+import { ScrollToTopProduct } from "../../hooks/ScrollToTop";
 import { useMemo } from "react";
 import ErrorPage from "../Error/Error";
 
 export default function Product() {
-  ScrollToTop();
+  ScrollToTopProduct();
   const { productid } = useParams();
   const { data, loading, error } = useFetch(`${product_base_url}${productid}`);
   const { cart, setCart } = useOutletContext();

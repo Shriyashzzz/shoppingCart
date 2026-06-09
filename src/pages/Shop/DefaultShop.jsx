@@ -12,8 +12,9 @@ import {
   handleItemIncerement,
 } from "../Cart/getCartInfo";
 import { useMemo } from "react";
-
+import { ScrollToTop } from "../../hooks/ScrollToTop";
 export default function DefaultShop() {
+  ScrollToTop();
   const [fatalError, setFatalError] = useState(null);
   const [products, setProducts] = useState([]);
   const [selectedValue, setSelectedValue] = useState("See Everything");

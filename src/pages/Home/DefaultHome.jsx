@@ -8,8 +8,9 @@ import { ShoppingCart } from "lucide-react";
 import Button from "../../components/Button/Button";
 import { useTheme } from "../../theme/ThemeContext";
 import { useFetch } from "../../hooks/useFetch";
-
+import { ScrollToTop } from "../../hooks/ScrollToTop";
 export default function DefaultHome() {
+  ScrollToTop();
   const url = `https://dummyjson.com/products/category/fragrances`;
   const { cart, setCart } = useOutletContext();
   const { data, loading, error } = useFetch(url);
