@@ -65,10 +65,12 @@
 
 @media screen and (max-width: 925px) {
   .mainContainer {
+    margin: 0;
+    font-size: 18px;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
-    height: fit-content;
+    padding: 1.4rem;
+    height: 100%;
   }
   .imgCartContainer {
     display: flex;

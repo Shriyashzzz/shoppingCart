@@ -149,3 +149,9 @@
   filter: invert(99%) sepia(1%) saturate(2975%) hue-rotate(190deg)
     brightness(94%) contrast(108%);
 }
+
+@media screen and (max-width: 925px) {
+  .footerWrap {
+    margin-top: 0.5rem;
+  }
+}

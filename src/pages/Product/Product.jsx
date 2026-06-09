@@ -73,7 +73,7 @@ export default function Product() {
     return (
       <article className={styles.mainContainer}>
         <section className={styles.imgCartContainer}>
-          <img src={data?.images?.[0]} alt="" />
+          <img src={data?.images?.[0]} alt="" loading="lazy" />
         </section>
         <section className={styles.productInfo}>
           <h2>{data?.title}</h2>
