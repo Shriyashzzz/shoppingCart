@@ -6,6 +6,9 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import ShopAddToCartBtn from "../../components/ShopAddCartBtn/ShopAddToCart";
 import ScrollToTop from "../../hooks/ScrollToTop";
+import { useMemo } from "react";
+import ErrorPage from "../Error/Error";
+
 export default function Product() {
   ScrollToTop();
   const { productid } = useParams();
@@ -26,6 +29,35 @@ export default function Product() {
       } else if (direction === "down" && currentValue > 1) {
         input.value = currentValue - 1;
       }
+    }
+  };
+  const addToCart = (event, productId, cart, setCart, data) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const inputBoxValue = parseInt(formData.get("cart-count"));
+    event.target.reset(); //resets the form data
+    let exists = cart.some((p) => p.id === productId);
+    if (!exists) {
+      setCart((cart) => [
+        ...cart,
+        {
+          ...data,
+          cartCount: inputBoxValue ? inputBoxValue : 1,
+          price: data?.price,
+        },
+      ]);
+    } else {
+      const newCart = cart.map((cartProduct) =>
+        cartProduct.id === productId
+          ? {
+              ...cartProduct,
+              cartCount:
+                cartProduct.cartCount + (inputBoxValue ? inputBoxValue : 1),
+              price: data?.price,
+            }
+          : cartProduct,
+      );
+      setCart(newCart);
     }
   };
 
@@ -101,32 +133,3 @@ export default function Product() {
 }
 
 const product_base_url = "https://dummyjson.com/products/";
-const addToCart = async (event, productId, cart, setCart, data) => {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const inputBoxValue = parseInt(formData.get("cart-count"));
-  event.target.reset(); //resets the form data
-  let exists = cart.some((p) => p.id === productId);
-  if (!exists) {
-    setCart((cart) => [
-      ...cart,
-      {
-        ...data,
-        cartCount: inputBoxValue ? inputBoxValue : 1,
-        price: data?.price,
-      },
-    ]);
-  } else {
-    const newCart = cart.map((cartProduct) =>
-      cartProduct.id === productId
-        ? {
-            ...cartProduct,
-            cartCount:
-              cartProduct.cartCount + (inputBoxValue ? inputBoxValue : 1),
-            price: data?.price,
-          }
-        : cartProduct,
-    );
-    setCart(newCart);
-  }
-};
