@@ -176,8 +176,8 @@ export default function DefaultShop() {
         <section className={styles.productGrid}>
           {products.map((product) => {
             return (
-              <div className={styles.CardContainer}>
-                <NavLink key={product.id} to={`/product/${product.id}`}>
+              <div className={styles.CardContainer} key={product.id}>
+                <NavLink to={`/product/${product.id}`}>
                   <img
                     src={product.images[0]}
                     alt={product.title}
