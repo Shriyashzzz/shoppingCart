@@ -32,6 +32,7 @@ export default function Product() {
     }
   };
   const addToCart = (event, productId, cart, setCart, data) => {
+    console.log(data);
     event.preventDefault();
     const formData = new FormData(event.target);
     const inputBoxValue = parseInt(formData.get("cart-count"));
@@ -122,9 +123,13 @@ export default function Product() {
             </div>
             <ShopAddToCartBtn type="submit" />
           </form>
-          <div>
+
+          <div className={styles.prodDesc}>
+            <span className={styles.inlineText}>
+              <h4>Brand:</h4> <p> {data?.brand}</p>
+            </span>
             <h4>Description</h4>
-            <p>{data?.description}</p>
+            <p> {data?.description}</p>
           </div>
         </section>
       </article>
